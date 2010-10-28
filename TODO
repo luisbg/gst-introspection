@@ -1,0 +1,9 @@
+* create proper installer or way of running without the arguments problem
+* remove gst-launch arguments from parsed pipeline description if present
+* fix this caps parsing errors
+* find a way to apply sliders only on release
+* non-live changeable parameters handling
+* gst wrapper
+ * message tracking
+ * EOS sending
+* message-powered widgets (level, analyse, ...)

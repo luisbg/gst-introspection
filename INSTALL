@@ -1,0 +1,12 @@
+= Requirements =
+* python-gtk2.4
+* python-gstreamer
+* python-gobject 
+* optional: candies library (with it's own deps), see http://candies.ubicast.eu
+
+= Instructions =
+
+1) create symlink from src folder to /usr/local/lib/python/site-packages/gstgengui
+2) create symlink from src/gst-gengui to /usr/local/bin or other directory in your PATH
+
+Then: gst-gengui audiotestsrc name=src ! ladspa-hard-gate name=filter ! audioconvert ! alsasink

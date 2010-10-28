@@ -1,0 +1,56 @@
+gst-gengui README
+=====================
+
+gst-gengui is an utility for testing and controlling live GStreamer pipelines and elements.
+It will inspect the specified pipeline to create the GTK GUI automagically, based on the value type of properties.
+
+gst-gengui currently requires (Ubuntu 8.04 package names):
+   * python-gtk2
+   * python-gst0.10
+   * python-gobject
+
+It has been tested on Ubuntu 8.04
+
+USAGE
+=====
+
+Will launch the gst-launch-compliant pipeline description (for custom caps, see current command line limitations section):
+gst-gengui videotestsrc ! xvimagesink sync=false
+
+If no argument is given, it will launch the pipeline description found in the gstgengui/config.py file
+
+INSTALLATION
+============
+
+Note: using the following as command instead of gst-gengui will let you use gst-gengui without doing the symlinks
+PYTHONPATH=$PWD python gstgengui/gst-gengui.py
+
+Install symlinks:
+sudo ln -s `pwd`/gstgengui /usr/local/lib/python2.5/site-packages/gstgengui
+sudo ln -s `pwd`/gstgengui/gst-gengui.py /usr/local/bin/gst-gengui
+chmod +x /usr/local/bin/gst-gengui
+
+OPTIONS
+=======
+
+Check the gstgengui/config.py file for options and examples.
+
+The config file contains static declarations for:
+* ignore-list: properties having one of these names will not be "introspected"
+* pipeline_desc: gstreamer pipeline description, in gst-launch-like syntax. caps need to be set the following way (without the quotes):
+
+pipeline_desc = "videotestsrc ! video/x-raw-yuv, format=(fourcc)YUY2, width=(int)320, height=(int)240, framerate=(fraction)15/1 ! ffmpegcolorspace !  videobalance ! queue ! xvimagesink"
+
+CURRENT COMMAND LINE LIMITATIONS
+================================
+
+When launching gst-gengui with arguments containing custom caps, capsfilters fail to parse the caps description somehow, so you need just to use the caps between the elements.
+
+Example:
+
+* gst-launch:
+
+gst-launch videotestsrc ! capsfilter caps = "video/x-raw-yuv, format=(fourcc)YUY2, width=(int)320, height=(int)240, framerate=(fraction)50/1" ! xvimagesink
+
+* gst-gengui equivalent:
+gst-gengui videotestsrc ! "video/x-raw-yuv, format=(fourcc)YUY2, width=(int)320, height=(int)240, framerate=(fraction)50/1" ! queue ! xvimagesink
