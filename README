@@ -15,20 +15,9 @@ USAGE
 =====
 
 Will launch the gst-launch-compliant pipeline description (for custom caps, see current command line limitations section):
-gst-gengui videotestsrc ! xvimagesink sync=false
+./gst-gengui videotestsrc ! xvimagesink sync=false
 
-If no argument is given, it will launch the pipeline description found in the gstgengui/config.py file
-
-INSTALLATION
-============
-
-Note: using the following as command instead of gst-gengui will let you use gst-gengui without doing the symlinks
-PYTHONPATH=$PWD python gstgengui/gst-gengui.py
-
-Install symlinks:
-sudo ln -s `pwd`/gstgengui /usr/local/lib/python2.5/site-packages/gstgengui
-sudo ln -s `pwd`/gstgengui/gst-gengui.py /usr/local/bin/gst-gengui
-chmod +x /usr/local/bin/gst-gengui
+If no argument is given, it will launch the default pipeline description found in the gstgengui/config.py file
 
 OPTIONS
 =======
@@ -53,4 +42,4 @@ Example:
 gst-launch videotestsrc ! capsfilter caps = "video/x-raw-yuv, format=(fourcc)YUY2, width=(int)320, height=(int)240, framerate=(fraction)50/1" ! xvimagesink
 
 * gst-gengui equivalent:
-gst-gengui videotestsrc ! "video/x-raw-yuv, format=(fourcc)YUY2, width=(int)320, height=(int)240, framerate=(fraction)50/1" ! queue ! xvimagesink
+./gst-gengui videotestsrc ! "video/x-raw-yuv, format=(fourcc)YUY2, width=(int)320, height=(int)240, framerate=(fraction)50/1" ! queue ! xvimagesink

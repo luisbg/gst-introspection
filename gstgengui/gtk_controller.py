@@ -1,7 +1,5 @@
 #!/usr/bin/env python
 
-# example helloworld.py
-
 import pygtk
 pygtk.require('2.0')
 import gtk
@@ -94,9 +92,10 @@ class GtkGstController:
         videowidget = VideoWidget()
         videowidget.show()
         self.preview_container.pack_start(videowidget, True, True, 0)
+
         # Sync with the X server before giving the X-id to the sink
-        gtk.gdk.display_get_default().sync()
-        #gobject.idle_add(videowidget.set_sink, message.src)
+        # gtk.gdk.display_get_default().sync()
+        # gobject.idle_add(videowidget.set_sink, message.src)
         videowidget.set_sink(message.src)
         message.src.set_property('force-aspect-ratio', True)
 
@@ -109,7 +108,7 @@ class GtkGstController:
         entry.set_size_request(400,50)
         entry.set_wrap_mode(gtk.WRAP_CHAR)
         self.textbuffer = textbuffer = entry.get_buffer()
-        textbuffer.set_text(pipeline_launcher.pipeline_string)
+        textbuffer.set_text(pipeline_launcher.pipeline_desc)
         textbuffer.set_modified(False)
 
         container.add(label)

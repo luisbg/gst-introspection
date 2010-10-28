@@ -7,11 +7,9 @@ gst-gengui candies canvas: uses the inspector to generate widgets
 Copyright 2009, Florent Thiery, under the terms of LGPL
 """
 
-backend = "gtk"
-#backend = "candies"
-
-from gstgengui.gstintrospector import PipelineIntrospector
-from gstmanager.gstmanager import PipelineManager
+from gstintrospector import PipelineIntrospector
+from gstmanager import PipelineManager
+from gtk_controller import GtkGstController
 
 def build_gui(pipeline, controller):
     introspector = None
@@ -38,12 +36,7 @@ if __name__ == '__main__':
         pipeline_launcher = PipelineManager(gst_string)
     pipeline = pipeline_launcher.pipeline
 
-    if backend == "gtk":
-        from gtk_controller import GtkGstController
-        controller = GtkGstController(pipeline_launcher)
-    elif backend == "candies":
-        from candies_controller import CandiesGstController
-        controller = CandiesGstController(pipeline_launcher)
+    controller = GtkGstController(pipeline_launcher)
 
     build_gui(pipeline, controller)
     controller.rebuild_callback = build_gui
